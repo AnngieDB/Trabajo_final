@@ -2,8 +2,8 @@ package clases;
 
 public class Mesas {
 	
-	private int numero;
-    private String estado;
+	 int numero;
+     String estado;
  
 
     public Mesas(int numero) {

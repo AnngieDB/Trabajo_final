@@ -14,16 +14,17 @@ public class Cajeros extends Usuarios {
 		 return "Caja";
 	 }
 	 
-	 public void realizarOperacionesCaja(List<Mesas> listaMesas, List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, Scanner scanner) {
+	 public void realizarOperacionesCaja(boolean[] configurarMesas, List<Mesas> listaMesas, List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, Scanner scanner) {
 	     int opcion = 0;
+	     int numeroMesas = obtenerNumeroMesas();
+	     boolean[] mesasAbiertas = new boolean[numeroMesas];
 
 	        while (opcion != 5) {
 	            System.out.println("------ Menú ------");
 	            System.out.println("1. Ver mesas");
 	            System.out.println("2. Modificar mesas");
 	            System.out.println("3. Venta directa");
-	            System.out.println("4. Cerrar turno");
-	            System.out.println("5. Salir");
+	            System.out.println("4. Salir");
 
 	            try {
 	            	System.out.println(" ");
@@ -33,32 +34,31 @@ public class Cajeros extends Usuarios {
 
 	                switch (opcion) {
 	                    case 1:
-	                    	mostrarListaMesas(listaMesas);
+	                    	mostrarEstadoMesas(configurarMesas);
 	                    	break;
 	                    case 2:
-	                    	mostrarListaMesas(listaMesas);
 	                    	System.out.println("Ingrese el número de la mesa que desea modificar: ");
 	                    	opcion = scanner.nextInt();
 	                    	scanner.nextLine();
-	                    	if (opcion >= 0 && opcion < listaMesas.size()) {
+	                    	if (opcion >= 0 && opcion < configurarMesas.length) {
 	                    		System.out.println("1. Abrir mesa " + opcion);
 	                    		System.out.println("2. Cerrar mesa " + opcion);
 	                    		opcion = scanner.nextInt();
 	                    		scanner.nextLine();
-	                    		if (opcion == 1) {
-	                    			Mesas.put(opcion, true);
-	                    			System.out.println("Mesa abierta correctamente.");
-	                    		} else if (opcion == 2) {
-	                    			Mesas.put(opcion, true);
-	                	            System.out.println("Mesa cerrada correctamente.");
-	                    	  }
+	                    		switch (opcion) {
+	                    		case 1:
+	                                abrirMesa(configurarMesas);
+	                                break;
+	                            case 2:
+	                                cerrarMesa(configurarMesas);
+	                                break;
+	                    	
+	                    		}
 	                    	}
-	                    	break;
 	                    case 3:
 	                    	break;
 	                    case 4:
-	                    	break;
-	                    case 5:
+	                    	System.out.println("Saliendo del sistema...");
 	                    	break;
 						}
 	                
@@ -71,16 +71,67 @@ public class Cajeros extends Usuarios {
 	 
 }
 
-	 private void mostrarListaMesas(List<Mesas> listaMesas) {
-	        if (listaMesas.isEmpty()) {
-	            System.out.println("No hay mesas en la lista.");
-	        } else {
-	            System.out.println("Lista de mesas:");
-	            for (Mesas mesas : listaMesas) {
-	                System.out.println(mesas);
-	            }
+	 private int obtenerNumeroMesas() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	 
+	 private static void mostrarEstadoMesas(boolean[] configurarMesas) {
+	        System.out.println();
+	        System.out.println("=== Estado de las Mesas ===");
+	        for (int i = 0; i < configurarMesas.length; i++) {
+	            String estado = configurarMesas[i] ? "Abierta" : "Cerrada";
+	            System.out.println("Mesa " + (i + 1) + ": " + estado);
 	        }
-	 }
+	    }
+
+	    private static void abrirMesa(boolean[] configurarMesas) {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Ingrese el número de mesa a abrir: ");
+	        int numeroMesa = scanner.nextInt();
+
+	        if (numeroMesa >= 1 && numeroMesa <= configurarMesas.length) {
+	        	configurarMesas[numeroMesa - 1] = true;
+	            System.out.println("La mesa " + numeroMesa + " ha sido abierta.");
+	        } else {
+	            System.out.println("Número de mesa inválido. Intente nuevamente.");
+	        }
+	    }
+
+	    private static void cerrarMesa(boolean[] configurarMesas) {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Ingrese el número de mesa a cerrar: ");
+	        int numeroMesa = scanner.nextInt();
+
+	        if (numeroMesa >= 1 && numeroMesa <= configurarMesas.length) {
+	        	configurarMesas[numeroMesa - 1] = false;
+	            System.out.println("La mesa " + numeroMesa + " ha sido cerrada.");
+	        } else {
+	            System.out.println("Número de mesa inválido. Intente nuevamente.");
+	        }
+	    }
+
+	    private static void tomarComanda(boolean[] configurarMesas, String[] comandas) {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Ingrese el número de mesa para tomar la comanda: ");
+	        int numeroMesa = scanner.nextInt();
+
+	        if (numeroMesa >= 1 && numeroMesa <= configurarMesas.length) {
+	            if (configurarMesas[numeroMesa - 1]) {
+	                scanner.nextLine(); // Consumir el salto de línea pendiente
+
+	                System.out.print("Ingrese la comanda para la mesa " + numeroMesa + ": ");
+	                String comanda = scanner.nextLine();
+	                comandas[numeroMesa - 1] = comanda;
+
+	                System.out.println("La comanda para la mesa " + numeroMesa + " ha sido tomada.");
+	            } else {
+	                System.out.println("La mesa " + numeroMesa + " está cerrada. No se puede tomar la comanda.");
+	            }
+	        } else {
+	            System.out.println("Número de mesa inválido. Intente nuevamente.");
+	        }
+	        }
 
 
 	@Override
@@ -104,4 +155,11 @@ public class Cajeros extends Usuarios {
 	public String getTipoUsuario2() {
 		return null;
 	}
-}
+
+		
+	
+		
+	}
+
+	
+

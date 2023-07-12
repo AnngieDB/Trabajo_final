@@ -35,7 +35,7 @@ public abstract class Usuarios implements Autenticable {
     public abstract void realizarOperacionesAdmin(List<Empleado> listaEmpleados, List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, List<Mesas> listaMesas, Scanner scanner);
     
     public abstract String setTipoUsuario();
-    public abstract void realizarOperacionesCaja(List<Mesas> listaMesas, List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, Scanner scanner);
+    public abstract void realizarOperacionesCaja(boolean[] configurarMesas, List<Mesas> listaMesas, List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, Scanner scanner);
     
     public abstract String getTipoUsuario2();
     public abstract void realizarOperacionesMeseros(List<Mesas> listaMesas, List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, Scanner scanner);

@@ -213,12 +213,7 @@ public class Administrador extends Usuarios {
 	
 			return null;
 		}
-
-		@Override
-		public void realizarOperacionesCaja(List<Mesas> listaMesas, List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, Scanner scanner) {
-		
-			
-		}
+	
 
 		@Override
 		public String getTipoUsuario2() {
@@ -229,6 +224,14 @@ public class Administrador extends Usuarios {
 
 		@Override
 		public void realizarOperacionesMeseros(List<Mesas> listaMesas, List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, Scanner scanner) {
+			
+		}
+
+
+		@Override
+		public void realizarOperacionesCaja(boolean[] configurarMesas, List<Mesas> listaMesas,
+				List<Hamburguesas> listaHamburguesas, List<Bebida> listaBebida, Scanner scanner) {
+			// TODO Auto-generated method stub
 			
 		}
 

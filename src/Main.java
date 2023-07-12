@@ -100,7 +100,7 @@ public class Main {
             System.out.println("Bienvenidx de nuevo " + nombreUsuario);
             System.out.println(" ");
             usuarioAutenticado.realizarOperacionesAdmin(listaEmpleados, listaHamburguesas, listaBebida, listaMesas, scanner);
-            usuarioAutenticado.realizarOperacionesCaja(listaMesas, listaHamburguesas, listaBebida, scanner);
+            usuarioAutenticado.realizarOperacionesCaja(null, listaMesas, listaHamburguesas, listaBebida, scanner);
             usuarioAutenticado.realizarOperacionesMeseros(listaMesas, listaHamburguesas, listaBebida, scanner);
             
         } else {
